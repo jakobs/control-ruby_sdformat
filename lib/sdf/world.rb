@@ -8,7 +8,13 @@ module SDF
         def each_model
             return enum_for(__method__) if !block_given?
             xml.elements.each('model') do |element|
-                yield(Model.new(element, self))
+                begin
+                    yield(Model.new(element, self))
+                rescue Exception => e
+                    model_name = element.attributes['name']
+                    SDF.error "Error loading model '#{model_name}'"
+                    raise e
+                end
             end
         end
     end

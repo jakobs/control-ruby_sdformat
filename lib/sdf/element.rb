@@ -112,7 +112,7 @@ module SDF
             children = xml.elements.to_a(name)
             if children.empty?
                 if required
-                    raise Invalid, "expected #{self} to have a #{name} child element, but could not find one"
+                    raise Invalid, "expected #{self.name} #{self} to have a #{name} child element, but could not find one"
                 else
                     child = xml.add_element(name)
                     return klass.new(child, self)
